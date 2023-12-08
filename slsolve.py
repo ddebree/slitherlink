@@ -441,7 +441,7 @@ class Puzzle:
 
         return chr(self.board[r * self.board_width + c])
 
-    def set_board(self, r, c, val):
+    def set_link(self, r, c, val):
         assert r >= 0 and r < self.board_height, \
             "Invalid row index %d (must be in range [0, %d)" % \
             (r, self.board_height)
@@ -593,7 +593,7 @@ class Puzzle:
 
     def cond_set_x(self, row, col):
         if self.get_board(row, col) == ' ':
-            self.set_board(row, col, 'x')
+            self.set_link(row, col, 'x')
             self.set_changed()
             self.change_count += 1
 
@@ -608,7 +608,7 @@ class Puzzle:
                 assert(self.get_board(row - 1, col) == '.' and \
                        self.get_board(row + 1, col) == '.')
 
-            self.set_board(row, col, value)
+            self.set_link(row, col, value)
             self.set_changed()
             self.change_count += 1
 
@@ -968,7 +968,7 @@ def solve_puzzle(p):
             # Show the move options:
             p_opts = copy.deepcopy(p)
             for move in moves:
-                p_opts.set_board(move[0], move[1], '*')
+                p_opts.set_link(move[0], move[1], '*')
             p_opts.pretty_print()
             print("moves:  %s" % moves)
             raw_input()
