@@ -431,20 +431,6 @@ class Puzzle:
         self.changed = False
         self.change_count = 0
 
-        self.board_colors = bytearray((self.rows + 2) * (self.cols + 2))
-
-        for r in range(1, self.rows + 2):
-            for c in range(1, self.cols + 2):
-                self.set_board_color(r, c, 'i');
-
-        for r in range(self.rows + 2):
-            self.set_board_color(r, 0, OUTSIDE_COLOR)
-            self.set_board_color(r, self.cols + 1, OUTSIDE_COLOR)
-
-        for c in range(self.cols + 2):
-            self.set_board_color(0, c, OUTSIDE_COLOR)
-            self.set_board_color(self.rows + 1, c, OUTSIDE_COLOR)
-
     def get_board(self, r, c):
         assert r >= 0 and r < self.board_height, \
             "Invalid row index %d (must be in range [0, %d)" % \
@@ -464,19 +450,6 @@ class Puzzle:
             (c, self.board_width)
 
         self.board[r * self.board_width + c] = ord(val)
-
-    def set_board_color(self, r, c, val):
-        assert r >= 0 and r < self.rows + 2
-        assert c >= 0 and c < self.cols + 2
-
-        self.board_colors[r * (self.cols + 2) + c] = ord(val)
-
-    def get_board_color(self, r, c):
-        assert r >= 0 and r < self.rows + 2
-        assert c >= 0 and c < self.cols + 2
-
-        return chr(self.board_colors[r * (self.cols + 2) + c])
-
 
     def is_changed(self):
         '''
